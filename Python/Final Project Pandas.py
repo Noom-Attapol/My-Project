@@ -11,6 +11,7 @@
 
 # import data
 import pandas as pd
+import numpy as np
 df = pd.read_csv("sample-store.csv")
 
 # preview top 5 rows
@@ -119,66 +120,9 @@ df_sum_region = df.groupby('Region')['Sales'].sum()
 df_sum_region.plot(kind='pie')
 
 # TODO Bonus - use np.where() to create new column in dataframe to help you answer your own questions
-
-
-
-df.to_csv('stores1.csv',index=False)
-
-# -- Sheet 2 --
-
-# import data
-import pandas as pd
-df = pd.read_csv("storestext.csv")
-df['Order Date'] = pd.to_datetime(df['Order Date'], format='%m/%d/%Y')
-df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='%m/%d/%Y')
-df.to_csv('stores.csv',index=False)
-
-# -- Project Duplicate --
-
-# # Final Project - Analyzing Sales Data
-# 
-# **Date**: 17 September 2022
-# 
-# **Author**: Attapol Aiempichitkijkarn (Noom)
-# 
-# **Course**: `Pandas Foundation`
-
-
-# import data
-import pandas as pd
-df = pd.read_csv("sample-store.csv")
-
-# preview top 5 rows
-df.head()
-
-# shape of dataframe
-df.shape
-
-# see data frame information using .info()
-df.info()
-
-# We can use `pd.to_datetime()` function to convert columns 'Order Date' and 'Ship Date' to datetime.
-
-
-# example of pd.to_datetime() function
-pd.to_datetime(df['Order Date'].head(10), format='%m/%d/%Y')
-
-# TODO - convert order date and ship date to datetime in the original dataframe
-df['Order Date'] = pd.to_datetime(df['Order Date'], format='%m/%d/%Y')
-df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='%m/%d/%Y')
-df.info()
-
-# TODO - count nan in postal code column
-# df.isna().sum()
-df['Postal Code'].isna().sum()
-
-# TODO - filter rows with missing values
-clean_df = df.dropna()
-clean_df.shape
-df.head()
-#df = clean_df
-
-# TODO - Explore this dataset on your owns, ask your own questions
-# How Many Segment in this Dataset and Amount of each segment
-df['Segment'].value_counts()
+df_append = df
+df_append['Status Profit'] = np.where(df_append['Profit'] > 0 ,'Profit', 'Lost')
+lost_profit = df_append[df_append['Status Profit'] == 'Lost']
+#lost_profit.head()
+lost_profit[['Order ID', "Order Date", "Profit" , "Status Profit"]]
 
