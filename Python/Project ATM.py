@@ -41,3 +41,9 @@ class Atm:
             else:
                count = count + 1
                print(f"You enter wrong password! Pleas Try again #{count}")
+
+atm1 = Atm(1234567890120, "Mr. Attapol Aiem", "123456", 100000)
+atm2 = Atm(1234567890121, "Mrs. Jarivun Aiem", "222222", 200000000)
+
+atm2.acc_sum()
+atm1.acc_sum()
